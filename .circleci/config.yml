@@ -89,7 +89,7 @@ jobs:
           name: 'Perform the versioning before build'
           command: bun ./version.mjs
       - run:
-          name: 'Build the OHIF Viewer'
+          name: 'Build the Coronary Angiography Viewer'
           command: bun run build
           no_output_timeout: 45m
       - run:
