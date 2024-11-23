@@ -45,6 +45,8 @@ const { availableLanguages, defaultLanguage, currentLanguage } = i18n;
 
 const seriesInStudiesMap = new Map();
 
+const POLLING_INTERVAL = 5000; // 5秒轮询间隔
+
 /**
  * TODO:
  * - debounce `setFilterValues` (150ms?)
@@ -210,29 +212,41 @@ function WorkList({
 
   // Query for series information
   useEffect(() => {
+    let pollingTimer;
+
     const fetchSeries = async studyInstanceUid => {
       try {
         const series = await dataSource.query.series.search(studyInstanceUid);
         seriesInStudiesMap.set(studyInstanceUid, sortBySeriesDate(series));
         setStudiesWithSeriesData([...studiesWithSeriesData, studyInstanceUid]);
       } catch (ex) {
-        // TODO: UI Notification Service
         console.warn(ex);
       }
     };
 
-    // TODO: WHY WOULD YOU USE AN INDEX OF 1?!
-    // Note: expanded rows index begins at 1
-    for (let z = 0; z < expandedRows.length; z++) {
-      const expandedRowIndex = expandedRows[z] - 1;
-      const studyInstanceUid = sortedStudies[expandedRowIndex].studyInstanceUid;
-
-      if (studiesWithSeriesData.includes(studyInstanceUid)) {
-        continue;
+    const pollSeries = () => {
+      // 对已展开的行进行轮询
+      for (let z = 0; z < expandedRows.length; z++) {
+        const expandedRowIndex = expandedRows[z] - 1;
+        const studyInstanceUid = sortedStudies[expandedRowIndex].studyInstanceUid;
+        fetchSeries(studyInstanceUid);
       }
+    };
 
-      fetchSeries(studyInstanceUid);
+    // 初始加载
+    pollSeries();
+
+    // 设置轮询定时器
+    if (expandedRows.length > 0) {
+      pollingTimer = setInterval(pollSeries, POLLING_INTERVAL);
     }
+
+    // 清理定时器
+    return () => {
+      if (pollingTimer) {
+        clearInterval(pollingTimer);
+      }
+    };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [expandedRows, studies]);

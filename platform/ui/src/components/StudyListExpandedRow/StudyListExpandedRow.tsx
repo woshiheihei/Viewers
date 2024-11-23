@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './StudyListExpandedRow.css';
 
 import Table from '../Table';
 import TableHead from '../TableHead';
@@ -8,15 +9,43 @@ import TableRow from '../TableRow';
 import TableCell from '../TableCell';
 
 const StudyListExpandedRow = ({ seriesTableColumns, seriesTableDataSource, children }) => {
+  const analysisStatus = seriesTableDataSource.length <= 1 ? 'Analyzing' : 'Analysis Complete';
+
   return (
     <div className="w-full bg-black py-4 pl-12 pr-2">
-      <div className="block">{children}</div>
+      <div className="block">
+        {children}
+        <div className="mt-2 flex items-center text-sm">
+          Analysis Status:{' '}
+          <span
+            className={`ml-1 flex items-center ${
+              analysisStatus === 'Analyzing' ? 'text-yellow-500' : 'text-green-500'
+            }`}
+          >
+            {analysisStatus}
+            {analysisStatus === 'Analyzing' && (
+              <span className="dots-animation">
+                <span>.</span>
+                <span>.</span>
+                <span>.</span>
+              </span>
+            )}
+          </span>
+        </div>
+      </div>
       <div className="mt-4">
         <Table>
           <TableHead>
             <TableRow>
               {Object.keys(seriesTableColumns).map(columnKey => {
-                return <TableCell key={columnKey}>{seriesTableColumns[columnKey]}</TableCell>;
+                return (
+                  <TableCell
+                    key={columnKey}
+                    cellsNum={Object.keys(seriesTableColumns).length}
+                  >
+                    {seriesTableColumns[columnKey]}
+                  </TableCell>
+                );
               })}
             </TableRow>
           </TableHead>
@@ -30,6 +59,7 @@ const StudyListExpandedRow = ({ seriesTableColumns, seriesTableDataSource, child
                     <TableCell
                       key={cellKey}
                       className="truncate"
+                      cellsNum={Object.keys(row).length}
                     >
                       {content}
                     </TableCell>
