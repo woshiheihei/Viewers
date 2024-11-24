@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="28px" height="28px" viewBox="0 0 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>tool-report</title>
+    <g id="tool-report" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Rectangle" x="0" y="0" width="28" height="28"></rect>
+        <path d="M8,5 L20,5 C21.1045695,5 22,5.8954305 22,7 L22,21 C22,22.1045695 21.1045695,23 20,23 L8,23 C6.8954305,23 6,22.1045695 6,21 L6,7 C6,5.8954305 6.8954305,5 8,5 Z" id="Rectangle" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <line x1="10" y1="10" x2="18" y2="10" id="Line-1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="10" y1="14" x2="18" y2="14" id="Line-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="10" y1="18" x2="15" y2="18" id="Line-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </g>
+</svg>

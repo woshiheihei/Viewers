@@ -1,3 +1,5 @@
+import React from 'react';
+import { createRoot } from 'react-dom/client';
 import {
   getEnabledElement,
   StackViewport,
@@ -29,6 +31,7 @@ import { getFirstAnnotationSelected } from './utils/measurementServiceMappings/u
 import getActiveViewportEnabledElement from './utils/getActiveViewportEnabledElement';
 import toggleVOISliceSync from './utils/toggleVOISliceSync';
 import { usePositionPresentationStore, useSegmentationPresentationStore } from './stores';
+import ComprehensiveCoronaryAnalysisReport from '@ohif/ui/src/components/ComprehensiveCoronaryAnalysisReport/ComprehensiveCoronaryAnalysisReport';
 
 const toggleSyncFunctions = {
   imageSlice: toggleImageSliceSync,
@@ -1215,6 +1218,69 @@ function commandsModule({
         viewportGridService.getActiveViewportId()
       );
     },
+
+    openReport: () => {
+      const { uiNotificationService } = servicesManager.services;
+
+      // Show analysis notification with warning type for better visibility
+      const notificationId = uiNotificationService.show({
+        title: 'Analysis in Progress',
+        message: 'Performing mechanical analysis...',
+        type: 'warning',
+        duration: 8000, // Will auto-hide after 8 seconds
+      });
+
+      // After 8 seconds, hide notification and show report
+      setTimeout(() => {
+        // Hide the notification
+        uiNotificationService.hide(notificationId);
+
+        // Create a div element to hold the report
+        const reportContainer = document.createElement('div');
+        reportContainer.className =
+          'fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50';
+
+        // Create the report content
+        const reportContent = document.createElement('div');
+        reportContent.className =
+          'relative h-[90%] w-[60%] overflow-auto rounded-lg bg-white text-black';
+
+        // Create close button
+        const closeButton = document.createElement('button');
+        closeButton.className = 'absolute top-4 right-4 text-gray-500 hover:text-gray-700';
+        closeButton.innerHTML = `
+          <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        `;
+
+        // Create report wrapper
+        const reportWrapper = document.createElement('div');
+        reportWrapper.className = 'h-full w-full p-6';
+
+        // Mount the report component
+        const root = document.createElement('div');
+        reportWrapper.appendChild(root);
+
+        // Assemble the DOM structure
+        reportContent.appendChild(closeButton);
+        reportContent.appendChild(reportWrapper);
+        reportContainer.appendChild(reportContent);
+
+        // Add to document body
+        document.body.appendChild(reportContainer);
+
+        // Render the report component using React 18's createRoot
+        const reactRoot = createRoot(root);
+        reactRoot.render(React.createElement(ComprehensiveCoronaryAnalysisReport));
+
+        // Add cleanup on close
+        closeButton.onclick = () => {
+          reactRoot.unmount();
+          document.body.removeChild(reportContainer);
+        };
+      }, 8000);
+    },
   };
 
   const definitions = {
@@ -1453,6 +1519,9 @@ function commandsModule({
     },
     getRenderInactiveSegmentations: {
       commandFn: actions.getRenderInactiveSegmentations,
+    },
+    openReport: {
+      commandFn: actions.openReport,
     },
   };
 

@@ -84,7 +84,7 @@ const ComprehensiveCoronaryAnalysisReport: React.FC = () => {
   ];
 
   return (
-    <div className="mx-auto w-[210mm]">
+    <div className="mx-auto w-full">
       <div className="rounded-lg border border-gray-200 bg-white p-8">
         <div className="border-b border-gray-200 pb-6">
           <div className="text-center">

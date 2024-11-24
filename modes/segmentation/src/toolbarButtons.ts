@@ -89,6 +89,18 @@ const toolbarButtons: Button[] = [
     },
   },
   {
+    id: 'Report',
+    uiType: 'ohif.radioGroup',
+    props: {
+      type: 'tool',
+      icon: 'tool-report',
+      label: 'Report',
+      commands: 'openReport',
+      tooltip: 'View Report',
+      evaluate: 'evaluate.action',
+    },
+  },
+  {
     id: 'Crosshairs',
     uiType: 'ohif.radioGroup',
     props: {

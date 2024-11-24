@@ -93,6 +93,7 @@ import { ReactComponent as viewportStatusTracked } from './../../assets/icons/vi
 import { ReactComponent as toggleDicomOverlay } from './../../assets/icons/tool-toggle-dicom-overlay.svg';
 import { ReactComponent as toolZoom } from './../../assets/icons/tool-zoom.svg';
 import { ReactComponent as toolCapture } from './../../assets/icons/tool-capture.svg';
+import { ReactComponent as toolReport } from './../../assets/icons/tool-report.svg';
 import { ReactComponent as toolLayout } from './../../assets/icons/tool-layout-default.svg';
 import { ReactComponent as toolMore } from './../../assets/icons/tool-more-menu.svg';
 import { ReactComponent as toolMove } from './../../assets/icons/tool-move.svg';
@@ -290,6 +291,7 @@ const ICONS = {
   'toggle-dicom-overlay': toggleDicomOverlay,
   'tool-zoom': toolZoom,
   'tool-capture': toolCapture,
+  'tool-report': toolReport,
   'tool-layout': toolLayout,
   'tool-more-menu': toolMore,
   'tool-move': toolMove,
