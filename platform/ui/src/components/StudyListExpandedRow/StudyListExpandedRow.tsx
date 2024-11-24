@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './StudyListExpandedRow.css';
+import ComprehensiveCoronaryAnalysisReport from '../ComprehensiveCoronaryAnalysisReport/ComprehensiveCoronaryAnalysisReport';
 
 import Table from '../Table';
 import TableHead from '../TableHead';
@@ -9,6 +10,7 @@ import TableRow from '../TableRow';
 import TableCell from '../TableCell';
 
 const StudyListExpandedRow = ({ seriesTableColumns, seriesTableDataSource, children }) => {
+  const [showReport, setShowReport] = useState(false);
   const analysisStatus = seriesTableDataSource.length <= 1 ? 'Analyzing' : 'Analysis Complete';
 
   return (
@@ -31,8 +33,45 @@ const StudyListExpandedRow = ({ seriesTableColumns, seriesTableDataSource, child
               </span>
             )}
           </span>
+          {analysisStatus !== 'Analyzing' && (
+            <button
+              onClick={() => setShowReport(true)}
+              className="ml-4 rounded bg-blue-500 px-3 py-1 text-sm text-white transition-colors hover:bg-blue-600"
+            >
+              View Report
+            </button>
+          )}
         </div>
       </div>
+
+      {showReport && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="relative h-[90%] w-[90%] overflow-auto rounded-lg bg-white text-black">
+            <button
+              onClick={() => setShowReport(false)}
+              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+            >
+              <svg
+                className="h-6 w-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+            <div className="h-full w-full p-6">
+              <ComprehensiveCoronaryAnalysisReport />
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="mt-4">
         <Table>
           <TableHead>
