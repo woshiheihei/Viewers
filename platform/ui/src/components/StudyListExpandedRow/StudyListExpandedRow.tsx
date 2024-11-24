@@ -45,14 +45,14 @@ const StudyListExpandedRow = ({ seriesTableColumns, seriesTableDataSource, child
       </div>
 
       {showReport && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="relative h-[90%] w-[90%] overflow-auto rounded-lg bg-white text-black">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-8">
+          <div className="relative max-h-[95vh] w-[230mm] overflow-hidden rounded-lg bg-white text-black shadow-xl">
             <button
               onClick={() => setShowReport(false)}
-              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+              className="absolute right-4 top-4 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white text-gray-500 shadow-md hover:bg-gray-100 hover:text-gray-700"
             >
               <svg
-                className="h-6 w-6"
+                className="h-5 w-5"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -65,7 +65,7 @@ const StudyListExpandedRow = ({ seriesTableColumns, seriesTableDataSource, child
                 />
               </svg>
             </button>
-            <div className="h-full w-full p-6">
+            <div className="max-h-[95vh] w-full overflow-y-auto p-4">
               <ComprehensiveCoronaryAnalysisReport />
             </div>
           </div>

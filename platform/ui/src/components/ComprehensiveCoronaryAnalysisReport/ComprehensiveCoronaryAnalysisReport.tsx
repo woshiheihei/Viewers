@@ -84,15 +84,15 @@ const ComprehensiveCoronaryAnalysisReport: React.FC = () => {
   ];
 
   return (
-    <div className="w-full">
-      <div className="rounded-lg border border-gray-200 bg-white p-6">
-        <div className="border-b border-gray-200 pb-4">
-          <div className="flex items-center justify-between">
-            <p className="text-xl font-bold">Coronary Angiography Analysis Report</p>
+    <div className="mx-auto w-[210mm]">
+      <div className="rounded-lg border border-gray-200 bg-white p-8">
+        <div className="border-b border-gray-200 pb-6">
+          <div className="text-center">
+            <p className="text-2xl font-bold">Coronary Angiography Analysis Report</p>
           </div>
         </div>
 
-        <div className="my-4 grid grid-cols-2 gap-x-8 gap-y-2">
+        <div className="my-6 grid grid-cols-2 gap-x-12 gap-y-3 text-sm">
           <div className="flex justify-between">
             <span className="font-medium">Patient Name:</span>
             <span>{patientInfo.name}</span>
@@ -122,10 +122,10 @@ const ComprehensiveCoronaryAnalysisReport: React.FC = () => {
         {vesselAnalyses.map((analysis, index) => (
           <div
             key={analysis.vesselName}
-            className="mt-6 border-t pt-4"
+            className="mt-8 border-t pt-6"
           >
-            <div className="my-4 space-y-2 rounded-lg bg-gray-100 p-3">
-              <h3 className="font-semibold">{analysis.vesselName}</h3>
+            <div className="my-4 space-y-2 rounded-lg bg-gray-50 p-4">
+              <h3 className="text-lg font-semibold">{analysis.vesselName}</h3>
               <p className="text-sm">
                 Pa: {analysis.pressure} mmHg, Blood Flow Velocity: {analysis.flowVelocity} mm/s
               </p>
@@ -134,35 +134,39 @@ const ComprehensiveCoronaryAnalysisReport: React.FC = () => {
               </p>
             </div>
 
-            <div>
-              <h3 className="mb-2 font-semibold">Stenosis Information</h3>
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead>
+            <div className="mt-6">
+              <h3 className="mb-4 text-lg font-semibold">Stenosis Information</h3>
+              <table className="w-full text-sm">
+                <thead className="bg-gray-50">
                   <tr>
-                    <th className="px-4 py-2">Reference Diameter (mm)</th>
-                    <th className="px-4 py-2">Stenosis Diameter (mm)</th>
-                    <th className="px-4 py-2">Diameter Stenosis (%)</th>
-                    <th className="px-4 py-2">Lesion Length (mm)</th>
-                    <th className="px-4 py-2">caFFR</th>
-                    <th className="px-4 py-2">ΔcaFFR</th>
-                    <th className="px-4 py-2">Pressure Gradient</th>
+                    <th className="border px-3 py-2">Reference Diameter (mm)</th>
+                    <th className="border px-3 py-2">Stenosis Diameter (mm)</th>
+                    <th className="border px-3 py-2">Diameter Stenosis (%)</th>
+                    <th className="border px-3 py-2">Lesion Length (mm)</th>
+                    <th className="border px-3 py-2">caFFR</th>
+                    <th className="border px-3 py-2">ΔcaFFR</th>
+                    <th className="border px-3 py-2">Pressure Gradient</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td className="px-4 py-2 text-center">
+                    <td className="border px-3 py-2 text-center">
                       {analysis.measurements.referenceVesselDiameter}
                     </td>
-                    <td className="px-4 py-2 text-center">
+                    <td className="border px-3 py-2 text-center">
                       {analysis.measurements.stenosisDiameter}
                     </td>
-                    <td className="px-4 py-2 text-center">
+                    <td className="border px-3 py-2 text-center">
                       {analysis.measurements.stenosisPercentage}
                     </td>
-                    <td className="px-4 py-2 text-center">{analysis.measurements.lesionLength}</td>
-                    <td className="px-4 py-2 text-center">{analysis.measurements.caFFR}</td>
-                    <td className="px-4 py-2 text-center">{analysis.measurements.deltaFFR}</td>
-                    <td className="px-4 py-2 text-center">
+                    <td className="border px-3 py-2 text-center">
+                      {analysis.measurements.lesionLength}
+                    </td>
+                    <td className="border px-3 py-2 text-center">{analysis.measurements.caFFR}</td>
+                    <td className="border px-3 py-2 text-center">
+                      {analysis.measurements.deltaFFR}
+                    </td>
+                    <td className="border px-3 py-2 text-center">
                       {analysis.measurements.pressureGradient}
                     </td>
                   </tr>
@@ -170,15 +174,15 @@ const ComprehensiveCoronaryAnalysisReport: React.FC = () => {
               </table>
             </div>
 
-            <div className="mt-6">
-              <h3 className="mb-4 font-semibold">Vessel Images</h3>
-              <div className="grid grid-cols-2 gap-4">
+            <div className="mt-8">
+              <h3 className="mb-4 text-lg font-semibold">Vessel Images</h3>
+              <div className="grid grid-cols-2 gap-6">
                 <div className="overflow-hidden rounded-lg border border-gray-200">
-                  <div className="aspect-w-16 aspect-h-9 relative">
+                  <div className="aspect-w-4 aspect-h-3 relative">
                     <img
                       src="/assets/CA.png"
                       alt={`${analysis.vesselName} Angiogram`}
-                      className="h-full w-full object-cover"
+                      className="h-full w-full object-contain"
                     />
                   </div>
                   <div className="bg-gray-50 p-2 text-center text-sm text-gray-600">
@@ -186,11 +190,11 @@ const ComprehensiveCoronaryAnalysisReport: React.FC = () => {
                   </div>
                 </div>
                 <div className="overflow-hidden rounded-lg border border-gray-200">
-                  <div className="aspect-w-16 aspect-h-9 relative">
+                  <div className="aspect-w-4 aspect-h-3 relative">
                     <img
                       src="/assets/FFR.png"
                       alt={`${analysis.vesselName} 3D Reconstruction`}
-                      className="h-full w-full object-cover"
+                      className="h-full w-full object-contain"
                     />
                   </div>
                   <div className="bg-gray-50 p-2 text-center text-sm text-gray-600">
